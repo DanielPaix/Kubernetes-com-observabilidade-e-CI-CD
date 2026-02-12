@@ -6,4 +6,18 @@ services:
     container_name: pedidos-service
     ports:
       - "3001:3000"
-    restart: always
+
+  pagamentos-service:
+    build: ./pagamentos-service
+    container_name: pagamentos-service
+    ports:
+      - "3002:3000"
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - pedidos-service
+      - pagamentos-service
